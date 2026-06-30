@@ -1,4 +1,5 @@
 .DS_Store
 *.exe
+!driver-files/DriverSetup.exe
 installer/Output/
 license-server/
