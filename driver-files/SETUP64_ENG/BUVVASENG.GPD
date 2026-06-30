@@ -1,0 +1,980 @@
+*GPDSpecVersion: "1.0"
+*Include: "StdNames.gpd"
+*GPDFileVersion: "1.0"
+*GPDFileName: "BUVVASENG.GPD"
+*ModelName: "Buvvas Thermal Printer"
+*MasterUnits: PAIR(203, 203)
+*ResourceDLL: "BUVVASRCENG.DLL"
+*PrinterType: SERIAL
+*MaxCopies: 1
+
+*Feature: Orientation
+{
+    *rcNameID: =ORIENTATION_DISPLAY
+    *DefaultOption: PORTRAIT
+    *Option: PORTRAIT
+    {
+        *rcNameID: =PORTRAIT_DISPLAY
+    }
+    *Option: LANDSCAPE_CC270
+    {
+        *rcNameID: =LANDSCAPE_DISPLAY
+    }
+}
+*Feature: InputBin
+{
+    *rcNameID: =PAPER_SOURCE_DISPLAY
+    *DefaultOption: FORMSOURCE
+    *ConcealFromUI?: TRUE
+    *Option: FORMSOURCE
+    {
+        *rcNameID: =AUTO_DISPLAY
+    }
+}
+*Feature: Resolution
+{
+    *rcNameID: =RESOLUTION_DISPLAY
+    *DefaultOption: Option1
+    *Option: Option1
+    {
+        *Name: "203 x 203 " =DOTS_PER_INCH
+        *DPI: PAIR(203, 203)
+        *TextDPI: PAIR(203, 203)
+        *EXTERN_GLOBAL: *StripBlanks: LIST(LEADING,TRAILING)
+        *PinsPerPhysPass: 1
+        *PinsPerLogPass: 24
+        *SpotDiameter: 100
+        *Command: CmdSendBlockData { *Cmd : "<1D>v0<00>" %l{NumOfDataBytes / 24} "<1800>"}
+    }
+}
+*Feature: PaperSize
+{
+    *rcNameID: =PAPER_SIZE_DISPLAY
+    *DefaultOption: Option72mmWidthx3276mmHeight
+    *Option: Option72mmWidthx210mmHeight
+    {
+        *Name: "72mm*210mm(203dpi)"
+        *PageDimensions: PAIR(576, 1678)
+        *PrintableArea: PAIR(576, 1678)
+        *PrintableOrigin: PAIR(0, 0)
+    }
+    *Option: Option72mmWidthx297mmHeight
+    {
+        *Name: "72mm*297mm(203dpi)"
+        *PageDimensions: PAIR(576, 2374)
+        *PrintableArea: PAIR(576, 2374)
+        *PrintableOrigin: PAIR(0, 0)
+    }
+    *Option: Option72mmWidthx400mmHeight
+    {
+        *Name: "72mm*400mm(203dpi)"
+        *PageDimensions: PAIR(576, 3200)
+        *PrintableArea: PAIR(576, 3200)
+        *PrintableOrigin: PAIR(0, 0)    
+    }
+    *Option: Option72mmWidthx800mmHeight
+    {
+        *Name: "72mm*800mm(203dpi)"
+        *PageDimensions: PAIR(576, 6400)
+        *PrintableArea: PAIR(576, 6400)
+        *PrintableOrigin: PAIR(0, 0)    
+    }
+    *Option: Option72mmWidthx3276mmHeight
+    {
+        *Name: "72mm*3276mm(203dpi)"
+        *PageDimensions: PAIR(576, 26182)
+        *PrintableArea: PAIR(576, 26182)
+        *PrintableOrigin: PAIR(0, 0)    
+    }
+    *Option: CUSTOMSIZE
+    {
+        *rcNameID: =USER_DEFINED_SIZE_DISPLAY
+        *MinSize: PAIR(128, 128)
+        *MaxSize: PAIR(576, 26182)
+        *MaxPrintableWidth: 576
+        *MinLeftMargin: 0
+        *TopMargin: 0
+        *CenterPrintable?: FALSE
+    }   
+}
+
+*%******************************************************************************************
+*%                                      Cutter
+*%******************************************************************************************
+*Feature: Cutter
+{
+    *rcNameID: 291
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: HalfCutPaperAfterJob
+    *Option: FullCutPaperAfterJob
+    {
+        *rcNameID: 280
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.8
+            *Cmd: "<0D0A0D0A0D0A0D0A1B69>"
+        }
+    } 
+    *Option: HalfCutPaperAfterJob
+    {
+        *rcNameID: 281
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.8
+            *Cmd: "<1D564200>"
+        }
+    }    
+    *Option: FullCutPaperAfterDoc
+    {
+        *rcNameID: 282
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.8
+            *Cmd: "<0D0A0D0A0D0A0D0A1B69>"
+        }
+    } 
+    *Option: HalfCutPaperAfterDoc
+    {
+        *rcNameID: 283
+        *Command: CmdSelect
+        {
+            *Order: DOC_FINISH.8
+            *Cmd: "<1D564200>"
+        }
+    }
+    *Option: FullCutPaperAfterPage
+    {
+        *rcNameID: 284
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.8
+            *Cmd: "<0D0A0D0A0D0A0D0A1B69>"
+        }
+    } 
+    *Option: HalfCutPaperAfterPage
+    {
+        *rcNameID: 285
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.8
+            *Cmd: "<1D564200>"
+        }
+    }
+    *Option: CutterNotCut
+    {
+        *rcNameID: 295
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.8
+            *Cmd: "<>"
+        }
+    }
+}
+
+*%******************************************************************************************
+*%                                      FeedLine
+*%******************************************************************************************
+*Feature: FeedLine
+{
+    *rcNameID: 307
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: Option0
+    *Option: Option0
+    {
+        *Name: "0"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<>"
+        }
+    }
+    *Option: Option1
+    {
+        *Name: "1"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A>"
+        }
+    }
+    *Option: Option2
+    {
+        *Name: "2"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A0A>"
+        }
+    }
+    *Option: Option3
+    {
+        *Name: "3"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A0A0A>"
+        }
+    }
+    *Option: Option4
+    {
+        *Name: "4"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A0A0A0A>"
+        }
+    }
+    *Option: Option5
+    {
+        *Name: "5"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A0A0A0A0A>"
+        }
+    }
+    *Option: Option6
+    {
+        *Name: "10"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+    *Option: Option7
+    {
+        *Name: "15"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+    *Option: Option8
+    {
+        *Name: "20"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+    *Option: Option9
+    {
+        *Name: "25"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+    *Option: Option10
+    {
+        *Name: "30"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.7
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+}
+*Feature: PreFeed
+{
+    *rcNameID: 308
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: Option0
+    *Option: Option0
+    {
+        *Name: "0"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<>"
+        }
+    }
+    *Option: Option1
+    {
+        *Name: "1"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A>"
+        }
+    }
+    *Option: Option2
+    {
+        *Name: "2"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A0A>"
+        }
+    }
+    *Option: Option3
+    {
+        *Name: "3"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A0A0A>"
+        }
+    }
+    *Option: Option4
+    {
+        *Name: "4"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A0A0A0A>"
+        }
+    }
+    *Option: Option5
+    {
+        *Name: "5"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A0A0A0A0A>"
+        }
+    }
+    *Option: Option6
+    {
+        *Name: "10"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+    *Option: Option7
+    {
+        *Name: "15"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+    *Option: Option8
+    {
+        *Name: "20"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+    *Option: Option9
+    {
+        *Name: "25"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+    *Option: Option10
+    {
+        *Name: "30"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.2
+            *Cmd: "<0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A>"
+        }
+    }
+}
+
+*%******************************************************************************************
+*%                                      CashDrawer
+*%******************************************************************************************
+*Feature: CashDrawer
+{
+    *rcNameID: 501
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: CashDrawer12OpenBeforeJob
+    *Option: CashDrawer1OpenBeforeJob
+    {
+        *rcNameID: 511
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.2
+            *Cmd: "<1B70006060>"
+        }
+    }
+    *Option: CashDrawer2OpenBeforeJob
+    {
+        *rcNameID: 512
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.2
+            *Cmd: "<1B70016060>"
+        }
+    }
+    *Option: CashDrawer12OpenBeforeJob
+    {
+        *rcNameID: 513
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.2
+            *Cmd: "<1B70006060><1B70016060>"
+        }
+    }
+    *Option: CashDrawer1OpenAfterJob
+    {
+        *rcNameID: 503
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.10
+            *Cmd: "<1B70006060>"
+        }
+    }
+    *Option: CashDrawer2OpenAfterJob
+    {
+        *rcNameID: 504
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.10
+            *Cmd: "<1B70016060>"
+        }
+    }
+    *Option: CashDrawer12OpenAfterJob
+    {
+        *rcNameID: 505
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.10
+            *Cmd: "<1B70006060><1B70016060>"
+        }
+    }
+    *Option: CashDrawerNotOpen
+    {
+        *rcNameID: 510
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.2
+            *Cmd: "<>"
+        }
+    }
+}
+
+*%******************************************************************************************
+*%                                      Beeping
+*%******************************************************************************************
+*Feature: Beeping
+{
+    *rcNameID: 601
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: Option0
+    *Option: Option0
+    {
+        *Name: "0"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<>"
+        }
+    }
+    *Option: Option1
+    {
+        *Name: "1"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<1B420104>"
+        }
+    }
+    *Option: Option2
+    {
+        *Name: "2"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<1B420204>"
+        }
+    }
+    *Option: Option3
+    {
+        *Name: "3"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<1B420304>"
+        }
+    }
+    *Option: Option4
+    {
+        *Name: "4"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<1B420404>"
+        }
+    }
+    *Option: Option5
+    {
+        *Name: "5"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<1B420504>"
+        }
+    }
+    *Option: Option6
+    {
+        *Name: "6"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<1B420604>"
+        }
+    }
+    *Option: Option7
+    {
+        *Name: "7"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<1B420704>"
+        }
+    }
+    *Option: Option8
+    {
+        *Name: "8"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<1B420804>"
+        }
+    }
+    *Option: Option9
+    {
+        *Name: "9"
+        *Command: CmdSelect
+        {
+            *Order: JOB_FINISH.9
+            *Cmd: "<1B420904>"
+        }
+    }
+}
+
+*%******************************************************************************************
+*%                                      NVLogo
+*%******************************************************************************************
+*Feature: NVLogoAtPageSetup
+{
+    *rcNameID: 296
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: NoLogo
+    *Option: NVLogo1AtPageSetup
+    {
+        *rcNameID: 299
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.5
+            *Cmd: "<1C700100>"
+        }
+    }
+    *Option: NVLogo2AtPageSetup
+    {
+        *rcNameID: 300
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.5
+            *Cmd: "<1C700200>"
+        }
+    }
+    *Option: NVLogo3AtPageSetup
+    {
+        *rcNameID: 301
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.5
+            *Cmd: "<1C700300>"
+        }
+    }
+    *Option: NVLogo4AtPageSetup
+    {
+        *rcNameID: 302
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.5
+            *Cmd: "<1C700400>"
+        }
+    }
+    *Option: NVLogo5AtPageSetup
+    {
+        *rcNameID: 303
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.5
+            *Cmd: "<1C700500>"
+        }
+    }
+    *Option: NVLogo6AtPageSetup
+    {
+        *rcNameID: 304
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.5
+            *Cmd: "<1C700600>"
+        }
+    }
+    *Option: NVLogo7AtPageSetup
+    {
+        *rcNameID: 305
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.5
+            *Cmd: "<1C700700>"
+        }
+    }
+    *Option: NVLogo8AtPageSetup
+    {
+        *rcNameID: 306
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.5
+            *Cmd: "<1C700800>"
+        }
+    }
+    *Option: NoLogo
+    {
+        *rcNameID: 298
+        *Command: CmdSelect
+        {
+            *Order: DOC_SETUP.5
+            *Cmd: "<>"
+        }
+    }
+}
+
+*Feature: NVLogoAtPageFinish
+{
+    *rcNameID: 297
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: NoLogo
+    *Option: NVLogo1AtPageFinish
+    {
+        *rcNameID: 299
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.5
+            *Cmd: "<1C700100>"
+        }
+    }
+    *Option: NVLogo2AtPageFinish
+    {
+        *rcNameID: 300
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.5
+            *Cmd: "<1C700200>"
+        }
+    }
+    *Option: NVLogo3AtPageFinish
+    {
+        *rcNameID: 301
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.5
+            *Cmd: "<1C700300>"
+        }
+    }
+    *Option: NVLogo4AtPageFinish
+    {
+        *rcNameID: 302
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.5
+            *Cmd: "<1C700400>"
+        }
+    }
+    *Option: NVLogo5AtPageFinish
+    {
+        *rcNameID: 303
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.5
+            *Cmd: "<1C700500>"
+        }
+    }
+    *Option: NVLogo6AtPageFinish
+    {
+        *rcNameID: 304
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.5
+            *Cmd: "<1C700600>"
+        }
+    }
+    *Option: NVLogo7AtPageFinish
+    {
+        *rcNameID: 305
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.5
+            *Cmd: "<1C700700>"
+        }
+    }
+    *Option: NVLogo8AtPageFinish
+    {
+        *rcNameID: 306
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.5
+            *Cmd: "<1C700800>"
+        }
+    }
+    *Option: NoLogo
+    {
+        *rcNameID: 298
+        *Command: CmdSelect
+        {
+            *Order: PAGE_FINISH.5
+            *Cmd: "<>"
+        }
+    }
+}
+
+*Feature: PaperSaveMiddle
+{
+    *rcNameID: 611
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: Option0
+    *Option: Option0
+    {
+        *Name: "5mm"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.3
+            *CallbackID: 0x00120028
+        }
+    }
+    *Option: Option1
+    {
+        *Name: "10mm"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.3
+            *CallbackID: 0x00120050
+        }
+    }
+    *Option: Option2
+    {
+        *Name: "15mm"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.3
+            *CallbackID: 0x00120078
+        }
+    }
+    *Option: Option3
+    {
+        *Name: "20mm"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.3
+            *CallbackID: 0x001200a0
+        }
+    }
+    *Option: Option4
+    {
+        *Name: "25mm"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.3
+            *CallbackID: 0x001200c8
+        }
+    }
+    *Option: Option5
+    {
+        *Name: "30mm"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.3
+            *CallbackID: 0x001200f0
+        }
+    }
+    *Option: Option6
+    {
+        *Name: "none"
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.3
+            *CallbackID: 0x00120000
+        }
+    }
+}
+
+*Feature: ImageBinarizationAlgorithm
+{
+    *rcNameID: 621
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: Option0
+    *Option: Option0
+    {
+        *rcNameID: 622
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.4
+            *CallbackID: 0x00210000
+        }
+    }
+    *Option: Option1
+    {
+        *rcNameID: 623
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.4
+            *CallbackID: 0x00210001
+        }
+    }
+}
+
+*Feature: ImageUpsideDownPrint
+{
+    *rcNameID: 641
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: Option0
+    *Option: Option0
+    {
+        *rcNameID: 642
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.4
+            *CallbackID: 0x00410000
+        }
+    }
+    *Option: Option1
+    {
+        *rcNameID: 643
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.4
+            *CallbackID: 0x00410001
+        }
+    }
+}
+
+*Feature: ImageCmdConversionAlgorithm
+{
+    *rcNameID: 635
+    *FeatureType: PRINTER_PROPERTY
+    *DefaultOption: Option0
+    *Option: Option0
+    {
+        *rcNameID: 636
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.5
+            *CallbackID: 0x00310000
+        }
+    }
+    *Option: Option1
+    {
+        *rcNameID: 637
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.5
+            *CallbackID: 0x00310001
+        }
+    }
+    *Option: Option2
+    {
+        *rcNameID: 638
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.5
+            *CallbackID: 0x00310002
+        }
+    }
+    *Option: Option3
+    {
+        *rcNameID: 639
+        *Command: CmdSelect
+        {
+            *Order: JOB_SETUP.5
+            *CallbackID: 0x00310003
+        }
+    }
+}
+
+*Feature: ColorMode
+{
+    *rcNameID: =COLOR_PRINTING_MODE_DISPLAY
+    *DefaultOption: Mono
+    *Option: Mono
+    {
+        *rcNameID: =MONO_DISPLAY
+        *DevNumOfPlanes: 0
+        *DevBPP: 0
+        *DrvBPP: 8
+        *IPCallbackID: 1
+        *Color?: FALSE
+    }
+}
+
+*Feature: Halftone
+{
+    *rcNameID: =HALFTONING_DISPLAY
+    *DefaultOption: HT_PATSIZE_AUTO
+    *Option: HT_PATSIZE_AUTO
+    {
+        *rcNameID: =HT_AUTO_SELECT_DISPLAY
+    }
+    *Option: HT_PATSIZE_SUPERCELL_M
+    {
+        *rcNameID: =HT_SUPERCELL_DISPLAY
+    }
+    *Option: HT_PATSIZE_6x6_M
+    {
+        *rcNameID: =HT_DITHER6X6_DISPLAY
+    }
+    *Option: HT_PATSIZE_8x8_M
+    {
+        *rcNameID: =HT_DITHER8X8_DISPLAY
+    }
+}
+
+*Command: CmdStartJob
+{
+    *Order: JOB_SETUP.1
+    *Cmd: "<1B40>"
+}
+*Command: CmdStartDoc
+{
+    *Order: DOC_SETUP.1
+    *Cmd: "<>"
+}
+*Command: CmdStartPage
+{
+    *Order: PAGE_SETUP.1
+    *Cmd: "<>"
+}
+*Command: CmdEndPage
+{
+    *Order: PAGE_FINISH.1
+    *Cmd: "<>"
+}
+*Command: CmdEndDoc
+{
+    *Order: DOC_FINISH.1
+    *Cmd: "<>"
+}
+*Command: CmdEndJob
+{
+    *Order: JOB_FINISH.1
+    *Cmd: "<>"
+}
+*RotateCoordinate?: FALSE
+*RotateRaster?: FALSE
+*RotateFont?: FALSE
+*Command: CmdCR { *Cmd : "<>" }
+*Command: CmdLF { *Cmd : "<0A>" }
+*Command: CmdFF { *Cmd : "<>" }
+*EjectPageWithFF?: FALSE
+*OutputDataFormat: H_BYTE
+*OptimizeLeftBound?: FALSE
+*CursorXAfterSendBlockData: AT_GRXDATA_END
+*CursorYAfterSendBlockData: AUTO_INCREMENT
