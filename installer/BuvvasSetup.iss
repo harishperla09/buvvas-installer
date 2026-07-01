@@ -138,8 +138,8 @@ begin
   Result := False;
   Key := Uppercase(Trim(Key));
   
-  // Check length: BUVVAS-XXXX-XXXX-XXXX = 19 chars
-  if Length(Key) <> 19 then Exit;
+  // Check length: BUVVAS-XXXX-XXXX-XXXX = 21 chars (6+1+4+1+4+1+4)
+  if Length(Key) <> 21 then Exit;
   
   // Check prefix
   if Copy(Key, 1, 7) <> 'BUVVAS-' then Exit;
@@ -148,7 +148,7 @@ begin
   if (Key[12] <> '-') or (Key[17] <> '-') then Exit;
   
   // Check remaining chars are alphanumeric
-  for I := 8 to 19 do
+  for I := 8 to 21 do
   begin
     if I = 12 then Continue;
     if I = 17 then Continue;
