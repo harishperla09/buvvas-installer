@@ -56,7 +56,7 @@ Source: "..\driver-files\DriverSetup.exe"; DestDir: "{app}"; Flags: ignoreversio
 
 [Run]
 ; Run the original driver setup after files are installed
-Filename: "{app}\DriverSetup.exe"; Description: "Install Printer Driver"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\DriverSetup.exe"; Description: "Install Printer Driver"; Flags: postinstall skipifsilent shellexec waituntilterminated; Verb: "runas"
 
 [Code]
 // ============================================================================
